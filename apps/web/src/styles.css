@@ -57,3 +57,103 @@
 .sidebar { width: 286px; flex-basis: 286px; }.main { width: calc(100% - 286px); }.app-frame .brand strong { font-size: 20px; }.app-frame .brand small, .app-frame .mode-badge, .app-frame .nav-label { font-size: 11px; }.sidebar .nav a { min-height: 44px; font-size: 17px; }.sidebar .nav a > span { font-size: 16px; }.sidebar .sidebar-foot strong { font-size: 13px; }.sidebar .sidebar-foot small { font-size: 11px; }.app-frame .topbar { font-size: 14px; }.app-frame .topbar-meta { font-size: 13px; }.app-frame .eyebrow { font-size: 12px; }.app-frame h1 { font-size: clamp(38px, 3.6vw, 52px); }.app-frame h2, .app-frame .panel-heading h2, .app-frame .market-card h2, .app-frame .health-card h2 { font-size: 20px; }.app-frame .page-heading p, .app-frame .hero-copy p { font-size: 17px; }.app-frame .primary, .app-frame .secondary, .app-frame .quiet-button { min-height: 48px; font-size: 14px; }.app-frame .metric { min-height: 142px; }.app-frame .metric > span { font-size: 13px; }.app-frame .metric strong { font-size: 38px; }.app-frame .metric small { font-size: 12px; }.app-frame .ledger-metric strong { font-size: 28px; }.app-frame .text-link { font-size: 13px; }.app-frame .land-row { min-height: 86px; }.app-frame .land-row strong, .app-frame .detail-grid strong { font-size: 13px; }.app-frame .land-row > div:nth-child(2) span, .app-frame .service-row strong, .app-frame .activity-row strong, .app-frame .history-row strong, .app-frame .table-row, .app-frame .empty, .app-frame .empty-state strong { font-size: 13px; }.app-frame .service-row small, .app-frame .activity-row small, .app-frame .activity-row time, .app-frame .empty-state p, .app-frame .market-card p, .app-frame .history-row small, .app-frame .history-row time, .app-frame .profile-note, .app-frame .health-card p, .app-frame .reset-panel p { font-size: 12px; }.app-frame .status-pill, .app-frame .market-detail span, .app-frame .detail-grid span, .app-frame .table-head { font-size: 11px; }.app-frame label, .app-frame input, .app-frame select { min-height: 48px; font-size: 14px; }.app-frame .masked, .app-frame .document-controls small, .app-frame .document-result, .app-frame .health-card small, .app-frame .profile-hero p { font-size: 12px; }.app-frame .record-banner h1 { font-size: 36px; }.app-frame .record-card h2, .app-frame .profile-hero h2 { font-size: 24px; }
 @media (max-width: 900px) { .sidebar { width: min(84vw, 350px); flex-basis: auto; }.main { width: 100%; }.sidebar .nav a { font-size: 19px; }.sidebar .brand strong { font-size: 22px; } }
 @media (max-width: 620px) { .sidebar { width: min(88vw, 350px); }.app-frame h1 { font-size: clamp(38px, 10.8vw, 52px); }.app-frame h2, .app-frame .panel-heading h2, .app-frame .market-card h2, .app-frame .health-card h2 { font-size: 22px; }.app-frame .page-heading p, .app-frame .hero-copy p { font-size: 17px; }.sidebar .nav a { font-size: 19px; }.app-frame .primary, .app-frame .secondary, .app-frame .quiet-button, .app-frame label, .app-frame input, .app-frame select { font-size: 17px; }.app-frame .metric strong { font-size: 41px; } }
+
+/* Final readability pass for deployed school-demo use. */
+.app-frame {
+  font-family: "IBM Plex Sans Variable", "Segoe UI", system-ui, sans-serif;
+  font-size: 18px;
+}
+.sidebar {
+  width: 310px;
+  flex-basis: 310px;
+}
+.main {
+  width: calc(100% - 310px);
+}
+.sidebar .nav a {
+  min-height: 48px;
+  font-size: 18px;
+}
+.app-frame h1 {
+  font-size: clamp(42px, 4vw, 58px);
+}
+.app-frame h2,
+.app-frame .panel-heading h2,
+.app-frame .market-card h2,
+.app-frame .health-card h2 {
+  font-size: 24px;
+}
+.app-frame p,
+.app-frame .page-heading p,
+.app-frame .hero-copy p,
+.app-frame .market-card p {
+  font-size: 18px;
+  line-height: 1.75;
+}
+.app-frame .land-row strong,
+.app-frame .land-row > div:nth-child(2) span,
+.app-frame .service-row strong,
+.app-frame .service-row small,
+.app-frame .activity-row strong,
+.app-frame .activity-row small,
+.app-frame .history-row strong,
+.app-frame .history-row small,
+.app-frame .table-row,
+.app-frame .empty,
+.app-frame .empty-state strong,
+.app-frame .empty-state p {
+  font-size: 15px;
+}
+.app-frame .primary,
+.app-frame .secondary,
+.app-frame .quiet-button,
+.app-frame label,
+.app-frame input,
+.app-frame select {
+  font-size: 16px;
+}
+.sidebar-foot {
+  grid-template-columns: 34px minmax(0, 1fr);
+  row-gap: 12px;
+}
+.logout-button {
+  grid-column: 1 / -1;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--soft);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+}
+.logout-button:hover {
+  color: #fff;
+  border-color: rgba(255,102,52,.42);
+  background: rgba(255,102,52,.12);
+}
+@media (max-width: 900px) {
+  .sidebar {
+    width: min(86vw, 370px);
+    flex-basis: auto;
+  }
+  .main {
+    width: 100%;
+  }
+}
+@media (max-width: 620px) {
+  .app-frame h1 {
+    font-size: clamp(36px, 10vw, 50px);
+  }
+  .app-frame h2,
+  .app-frame .panel-heading h2,
+  .app-frame .market-card h2,
+  .app-frame .health-card h2 {
+    font-size: 24px;
+  }
+  .app-frame p,
+  .app-frame .page-heading p,
+  .app-frame .hero-copy p {
+    font-size: 17px;
+  }
+}
