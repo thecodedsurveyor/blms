@@ -3,7 +3,7 @@ services:
     name: blms-api
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build:api
+    buildCommand: npm ci --include=dev && npm run build:api
     startCommand: npm run start:api
     envVars:
       - key: NODE_ENV
