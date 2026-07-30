@@ -157,3 +157,219 @@
     font-size: 17px;
   }
 }
+
+/* Responsive hardening for the hosted demo. Keep this block last. */
+.login-page {
+  font-family: "IBM Plex Sans Variable", "Segoe UI", system-ui, sans-serif;
+}
+.login-card {
+  width: min(420px, calc(100% - 48px));
+}
+.login-card label,
+.login-card input,
+.login-card .primary {
+  font-size: 16px;
+}
+.login-heading p,
+.login-copy {
+  font-size: 16px;
+}
+.app-frame .brand strong,
+.app-frame .nav a,
+.app-frame .panel-heading h2,
+.app-frame .land-row strong,
+.app-frame .service-row strong,
+.app-frame .activity-row strong,
+.app-frame .history-row strong,
+.app-frame .table-row,
+.app-frame label,
+.app-frame input,
+.app-frame select,
+.app-frame button {
+  font-family: "IBM Plex Sans Variable", "Segoe UI", system-ui, sans-serif;
+}
+.app-frame .eyebrow,
+.app-frame .status-pill,
+.app-frame code,
+.app-frame .topbar-meta,
+.app-frame .masked,
+.app-frame .document-result,
+.app-frame .table-head,
+.app-frame .table-row time {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+.table-panel {
+  overflow-x: auto;
+}
+.table-head,
+.table-row {
+  min-width: 760px;
+}
+.market-detail,
+.detail-grid,
+.document-controls,
+.form-grid {
+  min-width: 0;
+}
+@media (max-width: 1180px) {
+  .sidebar {
+    width: 280px;
+    flex-basis: 280px;
+  }
+  .main {
+    width: calc(100% - 280px);
+  }
+  .content {
+    padding: 32px 28px 56px;
+  }
+  .dashboard-grid,
+  .record-layout {
+    grid-template-columns: 1fr;
+  }
+  .market-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .record-banner {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .record-banner-meta {
+    margin-left: 0;
+  }
+}
+@media (max-width: 900px) {
+  .login-page {
+    display: block;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  .login-aside {
+    min-height: auto;
+    padding: 36px 28px 44px;
+  }
+  .login-aside::after {
+    width: 280px;
+    height: 280px;
+    right: -140px;
+    bottom: -120px;
+  }
+  .login-aside .brand-mark {
+    margin-bottom: 40px;
+  }
+  .login-aside h1 {
+    font-size: clamp(38px, 9vw, 56px);
+  }
+  .login-card {
+    width: min(460px, calc(100% - 40px));
+    padding: 36px 0 48px;
+  }
+  .app-frame {
+    display: block;
+  }
+  .topbar {
+    min-height: 76px;
+    height: auto;
+    gap: 12px;
+  }
+  .topbar > div:nth-child(2) {
+    min-width: 0;
+  }
+  .crumb {
+    display: block;
+    margin-top: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .metric-grid,
+  .market-grid,
+  .service-grid,
+  .profile-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .command-hero {
+    grid-template-columns: 1fr;
+  }
+  .cadastre-map {
+    min-height: 260px;
+  }
+  .document-controls,
+  .inline-form,
+  .form-actions,
+  .reset-panel {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+  .document-actions {
+    flex-direction: column;
+  }
+  .file-picker {
+    width: max-content;
+  }
+}
+@media (max-width: 620px) {
+  body {
+    overflow-x: hidden;
+  }
+  .login-aside {
+    padding: 30px 22px 36px;
+  }
+  .login-copy {
+    font-size: 15px;
+  }
+  .login-card {
+    width: calc(100% - 32px);
+    padding-top: 30px;
+  }
+  .login-heading h2 {
+    font-size: 30px;
+  }
+  .login-card label,
+  .login-card input,
+  .login-card .primary {
+    font-size: 16px;
+  }
+  .content {
+    padding: 24px 14px 44px;
+  }
+  .topbar {
+    padding: 12px 14px;
+  }
+  .topbar .eyebrow,
+  .crumb {
+    font-size: 12px;
+  }
+  .page-heading .primary,
+  .hero-actions > *,
+  .record-banner .primary {
+    width: 100%;
+  }
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .market-card {
+    min-height: 285px;
+  }
+  .record-card,
+  .form-panel {
+    padding: 18px;
+  }
+  .sidebar {
+    width: min(90vw, 360px);
+  }
+  .sidebar .nav a {
+    font-size: 18px;
+  }
+  .logout-button {
+    min-height: 44px;
+  }
+}
