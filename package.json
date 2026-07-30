@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "description": "Blockchain-Based Land Management System research prototype",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev:api": "npm run dev -w @blms/api",
     "dev:web": "npm run dev -w @blms/web",
@@ -28,6 +31,7 @@
     "ipfs:down": "docker compose down ipfs"
   },
   "devDependencies": {
+    "@types/node": "^22.20.1",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3"
   }
