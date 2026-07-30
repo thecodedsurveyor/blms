@@ -15,10 +15,15 @@ declare global { namespace Express { interface Request { requestId: string; user
 const ledger: LedgerService = process.env.LEDGER_MODE === "fabric" ? new FabricLedgerService() : new MockLedgerService();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 const app = express();
-const allowedOrigins = (process.env.WEB_ORIGIN || "http://localhost:5173").split(",").map((origin) => origin.trim()).filter(Boolean);
+const normalizeOrigin = (origin: string) => origin.trim().replace(/\/$/, "");
+const allowedOrigins = Array.from(new Set([
+  "http://localhost:5173",
+  "https://blms-local-registry.netlify.app",
+  ...(process.env.WEB_ORIGIN || "").split(",")
+].map(normalizeOrigin).filter(Boolean)));
 app.use((req, res, next) => { req.requestId = crypto.randomUUID(); res.setHeader("X-Request-Id", req.requestId); next(); });
 app.use((req, res, next) => {
-  const origin = req.headers.origin;
+  const origin = typeof req.headers.origin === "string" ? normalizeOrigin(req.headers.origin) : "";
   if (origin && allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
