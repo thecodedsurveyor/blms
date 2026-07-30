@@ -21,7 +21,7 @@ const roleLabel = (role: User["role"]) => role === "GOVERNMENT_OFFICER" ? "Gover
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  useEffect(() => { api<User>("/auth/me").then(setUser).catch(() => setUser(null)).finally(() => setLoading(false)); }, []);
+  useEffect(() => { api<{ user: User | null }>("/auth/session").then((session) => setUser(session.user)).catch(() => setUser(null)).finally(() => setLoading(false)); }, []);
   const value = useMemo(() => ({
     user, loading,
     login: async (username: string, password: string) => setUser(await api<User>("/auth/login", { method: "POST", body: JSON.stringify({ username, password }) })),

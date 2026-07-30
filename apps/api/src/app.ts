@@ -49,6 +49,7 @@ const asyncRoute = (handler: (req: Request, res: Response) => Promise<unknown>) 
 const router = express.Router();
 router.post("/auth/login", (req, res, next) => { try { const user = authenticate(String(req.body?.username || ""), String(req.body?.password || "")); req.user = publicUser(user); res.cookie("blms_access", issueToken(publicUser(user)), { httpOnly: true, sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", secure: process.env.NODE_ENV === "production", maxAge: 2 * 60 * 60 * 1000 }); record("LOGIN", req, "SUCCESS", "Local session created"); return ok(res, publicUser(user)); } catch (error) { return next(error); } });
 router.post("/auth/logout", (req, res) => { res.clearCookie("blms_access"); record("LOGOUT", req, "SUCCESS", "Local session cleared"); return ok(res, { loggedOut: true }); });
+router.get("/auth/session", (req, res) => ok(res, { user: req.user ?? null }));
 router.get("/auth/me", requireAuth, (req, res) => ok(res, req.user));
 router.get("/health", asyncRoute(async (_req, res) => ok(res, { status: "ok", mode: ledger.mode, services: { api: "ok", ledger: (await ledger.health()).status, identity: "ok", ipfs: (await documentVault.health()).status } })));
 router.get("/health/fabric", asyncRoute(async (_req, res) => { const result = await ledger.health(); return result.status === "ok" && ledger.mode === "fabric" ? ok(res, result) : res.status(503).json({ data: result, error: { code: "SERVICE_UNAVAILABLE", message: result.detail } }); }));
