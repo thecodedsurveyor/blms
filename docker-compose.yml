@@ -1,0 +1,17 @@
+name: blms
+
+# Phase 2 remains runnable without Docker. Phase 3 adds a local Kubo API without
+# publishing its unrestricted public gateway port.
+services:
+  ipfs:
+    image: ipfs/kubo:v0.32.1
+    container_name: blms-ipfs
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5001:5001"
+    volumes:
+      - blms_ipfs_data:/data/ipfs
+    command: ["daemon", "--migrate=true", "--enable-pubsub-experiment"]
+
+volumes:
+  blms_ipfs_data:

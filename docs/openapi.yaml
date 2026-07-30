@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: BLMS Local API
+  version: 0.1.0
+  description: Synthetic academic land registry API. No live government, payment, or identity systems are connected.
+servers:
+  - url: http://localhost:4000/api/v1
+paths:
+  /auth/login:
+    post:
+      summary: Start a local demo session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: { type: string }
+                password: { type: string, format: password }
+      responses:
+        '200': { description: Authenticated user }
+        '401': { description: Invalid credentials }
+  /auth/logout:
+    post:
+      summary: Clear the local session
+      responses: { '200': { description: Session cleared } }
+  /auth/me:
+    get:
+      summary: Read the current user
+      responses: { '200': { description: Current synthetic user }, '401': { description: Unauthenticated } }
+  /health:
+    get:
+      summary: Read application and adapter health
+      responses: { '200': { description: Health envelope } }
+  /health/identity:
+    get:
+      summary: Read synthetic identity service health
+      responses: { '200': { description: Identity health } }
+  /health/ipfs:
+    get:
+      summary: Read document vault health
+      responses: { '200': { description: Document vault health }, '503': { description: Vault unavailable } }
+  /lands:
+    get:
+      summary: Search land records
+      parameters:
+        - { in: query, name: search, schema: { type: string } }
+      responses: { '200': { description: Land records } }
+    post:
+      summary: Register land for the authenticated citizen
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { $ref: '#/components/schemas/RegisterLand' } }
+      responses: { '201': { description: Land registered }, '400': { description: Validation failure } }
+  /lands/{propertyId}:
+    get:
+      summary: Read one land record
+      parameters: [{ $ref: '#/components/parameters/PropertyId' }]
+      responses: { '200': { description: Land record }, '404': { description: Not found } }
+  /lands/{propertyId}/history:
+    get:
+      summary: Read land history
+      parameters: [{ $ref: '#/components/parameters/PropertyId' }]
+      responses: { '200': { description: Transaction history } }
+  /lands/{propertyId}/list:
+    post:
+      summary: List a property for sale
+      parameters: [{ $ref: '#/components/parameters/PropertyId' }]
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { type: object, required: [askingPriceKobo], properties: { askingPriceKobo: { type: integer, minimum: 1 } } } }
+      responses: { '200': { description: Listing opened } }
+    delete:
+      summary: Cancel an owner listing
+      parameters: [{ $ref: '#/components/parameters/PropertyId' }]
+      responses: { '200': { description: Listing cancelled } }
+  /lands/{propertyId}/purchase:
+    post:
+      summary: Purchase a listed property with simulated settlement
+      parameters: [{ $ref: '#/components/parameters/PropertyId' }]
+      responses: { '200': { description: Ownership transferred }, '409': { description: Transfer rejected } }
+  /lands/{propertyId}/levies:
+    post:
+      summary: Update a government levy
+      parameters: [{ $ref: '#/components/parameters/PropertyId' }]
+      requestBody:
+        required: true
+        content:
+          application/json: { schema: { type: object, required: [levyKobo], properties: { levyKobo: { type: integer, minimum: 0 } } } }
+      responses: { '200': { description: Levy updated }, '403': { description: Government role required } }
+  /lands/{propertyId}/document:
+    post:
+      summary: Store a document and attach its CID to a land record
+      parameters: [{ $ref: '#/components/parameters/PropertyId' }]
+      requestBody:
+        required: true
+        content: { multipart/form-data: { schema: { type: object, required: [document], properties: { document: { type: string, format: binary } } } } }
+      responses: { '201': { description: CID stored }, '400': { description: Invalid file } }
+  /lands/{propertyId}/verify-document:
+    post:
+      summary: Compare a candidate file CID with the recorded CID
+      parameters: [{ $ref: '#/components/parameters/PropertyId' }]
+      requestBody:
+        required: true
+        content: { multipart/form-data: { schema: { type: object, required: [document], properties: { document: { type: string, format: binary } } } } }
+      responses: { '200': { description: MATCH or MISMATCH result } }
+  /transactions:
+    get:
+      summary: Read recent transactions
+      responses: { '200': { description: Transactions } }
+  /revenue/summary:
+    get:
+      summary: Read simulated government revenue
+      responses: { '200': { description: Simulated revenue } }
+  /audit:
+    get:
+      summary: Read application audit events
+      responses: { '200': { description: Audit trail } }
+components:
+  parameters:
+    PropertyId:
+      name: propertyId
+      in: path
+      required: true
+      schema: { type: string }
+  schemas:
+    RegisterLand:
+      type: object
+      required: [parcelNumber, titleNumber, state, lga, address, latitude, longitude, sizeSqM, assessedValueKobo]
+      properties:
+        parcelNumber: { type: string }
+        titleNumber: { type: string }
+        state: { type: string }
+        lga: { type: string }
+        address: { type: string }
+        latitude: { type: number }
+        longitude: { type: number }
+        sizeSqM: { type: number, minimum: 0 }
+        assessedValueKobo: { type: integer, minimum: 0 }

@@ -1,0 +1,19 @@
+node_modules/
+dist/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+coverage/
+.env
+storage/uploads/*
+!storage/uploads/.gitkeep
+data/runtime/
+apps/api/storage/runtime/
+.tmp/
+.interface-design/
+~$*
+*.log
+.DS_Store
+
+# Local Netlify folder
+.netlify

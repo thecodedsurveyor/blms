@@ -1,0 +1,34 @@
+{
+  "name": "blms",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Blockchain-Based Land Management System research prototype",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev:api": "npm run dev -w @blms/api",
+    "dev:web": "npm run dev -w @blms/web",
+    "dev:identity": "npm run dev -w @blms/identity-gateway",
+    "dev:offline": "npm run dev -w @blms/web",
+    "dev:mock": "cross-env VITE_API_URL=/api/v1 concurrently -k \"npm run dev:api\" \"npm run dev:web\"",
+    "build": "npm run build -ws",
+    "build:api": "npm run build -w @blms/shared && npm run build -w @blms/api",
+    "start:api": "npm run start -w @blms/api",
+    "typecheck": "npm run build -w @blms/shared && npm run typecheck -ws",
+    "test": "npm run test -ws",
+    "seed": "npm run seed -w @blms/api",
+    "reset": "npm run reset -w @blms/api",
+    "fabric:up": "echo Fabric network is scheduled for Phase 4",
+    "fabric:down": "echo Fabric network is scheduled for Phase 4",
+    "chaincode:deploy": "echo Chaincode deployment is scheduled for Phase 4",
+    "identities:enroll": "echo Fabric identity enrollment is scheduled for Phase 4",
+    "dev:fabric": "cross-env LEDGER_MODE=fabric npm run dev:api",
+    "test:e2e": "echo E2E suite is scheduled for Phase 6",
+    "caliper": "echo Caliper workloads are scheduled for Phase 6",
+    "ipfs:up": "docker compose up -d ipfs",
+    "ipfs:down": "docker compose down ipfs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3"
+  }
+}

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: blms-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build:api
+    startCommand: npm run start:api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LEDGER_MODE
+        value: mock
+      - key: IPFS_MODE
+        value: local
+      - key: WEB_ORIGIN
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true

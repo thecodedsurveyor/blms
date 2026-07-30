@@ -1,0 +1,5 @@
+{
+  "extends": "../../packages/shared/tsconfig.json",
+  "compilerOptions": { "outDir": "dist", "rootDir": "src", "noEmit": false, "esModuleInterop": true, "types": ["node"] },
+  "include": ["src"], "exclude": ["test"]
+}
